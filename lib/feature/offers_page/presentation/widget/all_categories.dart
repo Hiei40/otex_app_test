@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
-
-import '../../../../utils/colors/colors.dart';
-import '../../../../utils/fonts/fonts.dart';
-import '../../../../utils/photos/photos.dart';
+import 'package:otex_app_test/feature/offers_page/presentation/widget/packages_widget.dart';
+import '../../../../utils/database/sqllite_db.dart';
 import '../../data/alltype.dart';
+import 'free_delivery.dart';
+
+
 
 class AllCategories extends StatelessWidget {
   const AllCategories({super.key});
@@ -14,80 +15,42 @@ class AllCategories extends StatelessWidget {
       children: [
         SizedBox(
           height: 110,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: constalltype.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  alignment: Alignment.center,
-                  constraints: BoxConstraints(
-                    minWidth: 80, // عرض مناسب للزر
-                  ),
-                  decoration: BoxDecoration(color: AppColors.white),
+          child: FutureBuilder<List<Alltypes>>(
+            future: _fetchAlltypes(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CupertinoActivityIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No data available'));
+              }
 
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          constalltype[index].image,
-                          fit: BoxFit.contain,
-                          width: 50,
-                          height: 50,
-                        ),
-
-                        Text(
-                          constalltype[index].name,
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              final alltypes = snapshot.data!;
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: alltypes.length,
+                itemBuilder: (context, index) {
+                  return PackagesWidget(
+                    image: alltypes[index].image,
+                    name: alltypes[index].name,
+                  );
+                },
               );
             },
           ),
         ),
-
-        Container(
-          width: MediaQuery.of(context).size.width * .90,
-          color: AppColors.red.withOpacity(0.05),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Image.asset(Photos.check),
-                SizedBox(width: 10),
-                Text(
-                  "شحن مجانى",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                    fontFamily: Font.tajwal,
-                    color: AppColors.green,
-                  ),
-                ),
-                Spacer(),
-                Text(
-                  "لأى عرض تطلبه دلوقتى !",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 10,
-                    fontFamily: Font.tajwal,
-                    color: AppColors.textColor,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+        const FreeDelivery(),
       ],
     );
+  }
+
+  Future<List<Alltypes>> _fetchAlltypes() async {
+    final dbHelper = DatabaseHelper();
+    final List<Map<String, dynamic>> maps = await dbHelper.getAlltypes();
+    return maps.map((map) => Alltypes(
+      name: map['name'] as String,
+      image: map['image'] as String,
+    )).toList();
   }
 }

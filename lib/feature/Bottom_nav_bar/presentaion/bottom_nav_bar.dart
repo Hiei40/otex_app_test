@@ -4,7 +4,7 @@ import 'package:otex_app_test/feature/Bottom_nav_bar/presentaion/widget/containe
 import 'package:otex_app_test/feature/Bottom_nav_bar/presentaion/widget/container_icon_unactive.dart';
 import 'package:otex_app_test/utils/colors/colors.dart';
 import '../../offers_page/presentation/offers_page.dart';
-import '../../search/presentaion/plans_selected.dart';
+import '../../search/presentaion/filtering.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -20,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _pages = const [
     OffersPage(),
     Center(child: Text("محادثة")),
-    PlansSelected(),
+    Center(child: Text("أضف اعلان")),
     Center(child: Text("إعلاناتي")),
     Center(child: Text("حسابي")),
   ];
@@ -65,36 +65,36 @@ class _BottomNavBarState extends State<BottomNavBar> {
         child: Container(
           color: AppColors.white,
           height: 65,
-          child: Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(5, (index) {
-                if (index == 2) {
-                  return GestureDetector(
-                    onTap: () => _onItemTapped(index),
-                    child: Containericonadd(
-                      iconPath: _icons[index],
-                      label: _labels[index],
-                    ),
-                  );
-                } else {
-                  return GestureDetector(
-                    onTap: () => _onItemTapped(index),
-                    child:
-                        _selectedIndex == index
-                            ? Containericon(
-                              iconPath: _icons[index],
-                              label: _labels[index],
-                            )
-                            : Containericonunactive(
-                              iconPath: _icons[index],
-                              label: _labels[index],
-                            ),
-                  );
-                }
-              }),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(5, (index) {
+              return GestureDetector(
+                onTap: () {
+                  if (index == 4) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Filtering()),
+                    );
+                  } else {
+                    _onItemTapped(index);
+                  }
+                },
+                child: index == 2
+                    ? Containericonadd(
+                  iconPath: _icons[index],
+                  label: _labels[index],
+                )
+                    : _selectedIndex == index
+                    ? Containericon(
+                  iconPath: _icons[index],
+                  label: _labels[index],
+                )
+                    : Containericonunactive(
+                  iconPath: _icons[index],
+                  label: _labels[index],
+                ),
+              );
+            }),
           ),
         ),
       ),

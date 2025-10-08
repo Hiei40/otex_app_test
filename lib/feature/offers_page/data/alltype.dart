@@ -11,5 +11,5 @@ List<Alltypes> constalltype = [
   Alltypes(name: "موضة رجالى", image: Photos.manacceories),
   Alltypes(name: "ساعات", image: Photos.watch),
   Alltypes(name: "موبايلات", image: Photos.iphone),
-  Alltypes(name: "منتجات تجميل", image: Photos.womenmakeup),
+  Alltypes(name: "منتجات تجميل", image: "assets/photocontainer_womenmakeup.png"),
 ];

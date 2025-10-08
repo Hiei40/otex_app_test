@@ -34,9 +34,6 @@ final List<String> aboutbuilding = [
 
 final List<String> alloffers = [
   "كل العروض",
-  "ملابس",
 
-  "أكسسوارات",
-  "الكترونيات",
 
 ];

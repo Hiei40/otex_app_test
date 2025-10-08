@@ -55,6 +55,7 @@ class _FilteringState extends State<Filtering> {
                             numbofrooms = "الكل";
                             paymentway = "تقسيط";
                             buildingstatus = "جاهز";
+                            Navigator.pop(context);
                           });
                         },
                         child: Text(
