@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../../utils/colors/colors.dart';
 import '../../../../utils/fonts/fonts.dart';
 import '../../../../utils/photos/photos.dart';
+import '../../data/product_model.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
-
+  const ProductCard({super.key, required this.productModel,});
+final ProductModel productModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +35,7 @@ class ProductCard extends StatelessWidget {
                     topRight: Radius.circular(7.0),
                     topLeft: Radius.circular(7.0),
                   ),
-                  color: AppColors.black.withOpacity(0.10),
+                  color: AppColors.black.withOpacity(0.05),
                 ),
                 child: ClipRRect(
                   // borderRadius: const BorderRadius.vertical(
@@ -42,7 +43,7 @@ class ProductCard extends StatelessWidget {
                   //   topLeft: Radius.circular(5.0),
                   // ),
                   child: Image.asset(
-                    "assets/02e47cf0ed554bc399ec7a98c03dccd8f99147c6.png",
+                    productModel.image,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -58,7 +59,7 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "جاكيت من الصوف مناسب",
+                      productModel.name,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
@@ -77,23 +78,33 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "32,000,000جم/",
+                      "${  productModel.price}جم/",
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.red,
+                        color: AppColors.redldark,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 6),
 
-                    Text(
-                      ",60",
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
-                      ),
+
+                    Container(
+                      child:Stack(
+                        children: [
+                          Text(
+                            ",${productModel.oldPrice}",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color:AppColors.black.withOpacity(0.50),
+                              fontWeight: FontWeight.w400,
+                              decoration: TextDecoration.lineThrough,
+                              decorationColor: Colors.grey,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      )
                     ),
+
                     Spacer(),
                     Image.asset(Photos.favourite),
                   ],
@@ -123,6 +134,7 @@ class ProductCard extends StatelessWidget {
                         fontFamily: Font.tajwal,
                       ),
                     ),
+                    Spacer(),
                   ],
                 ),
                 const SizedBox(height:30),
