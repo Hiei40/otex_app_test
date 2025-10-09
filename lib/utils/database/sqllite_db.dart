@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
 import '../../feature/offers_page/data/alltype.dart';
 import '../../feature/search/data/package_model.dart';
+
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -22,7 +22,7 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'app_database.db');
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -41,6 +41,7 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         price REAL NOT NULL,
+        old_price REAL,
         category_id INTEGER,
         image_url TEXT,
         description TEXT,
@@ -53,6 +54,7 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         price REAL NOT NULL,
+        old_price REAL NOT NULL,
         offer TEXT,
         x INTEGER,
         description TEXT
@@ -97,32 +99,76 @@ class DatabaseHelper {
     int clothesCategoryId = 1;
 
     await db.insert('products', {
-      'name': 'هودي أسود',
-      'price': 32000.0,
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
       'category_id': clothesCategoryId,
-      'image_url': 'https://example.com/hoodie.jpg',
+      'image_url': 'assets/image/hoodie.png',
       'description': 'هودي مريح بسعر مخفض 60%.'
     });
 
     await db.insert('products', {
-      'name': 'ليبستيك أحمر',
-      'price': 25000.0,
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
       'category_id': 2,
-      'image_url': 'https://example.com/lipstick.jpg',
+      'image_url': 'assets/image/t-shirt.png',
       'description': 'ليبستيك عالي الجودة.'
     });
 
     await db.insert('products', {
-      'name': 'آيفون 14',
-      'price': 999000.0,
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
       'category_id': 3,
-      'image_url': 'https://example.com/iphone.jpg',
+      'image_url': 'assets/image/shoes.png',
       'description': 'هاتف ذكي متقدم.'
     });
+    await db.insert('products', {
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
+      'category_id': 3,
+      'image_url': 'assets/image/hoodie.png',
+      'description': 'هاتف ذكي متقدم.'
+    });
+    await db.insert('products', {
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
+      'category_id': 3,
+      'image_url': 'assets/image/shoes.png',
+      'description': 'هاتف ذكي متقدم.'
+    });
+    await db.insert('products', {
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
+      'category_id': 3,
+      'image_url': 'assets/image/hoodie.png',
+      'description': 'هاتف ذكي متقدم.'
+    });
+    await db.insert('products', {
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
+      'category_id': clothesCategoryId,
+      'image_url': 'assets/image/hoodie.png',
+      'description': 'هودي مريح بسعر مخفض 60%.'
+    });
 
+    await db.insert('products', {
+      'name': 'جاكيت من الصوف مناسب',
+      'price': 32000000,
+      'old_price': 60,
+      'category_id': 2,
+      'image_url': 'assets/image/t-shirt.png',
+      'description': 'ليبستيك عالي الجودة.'
+    });
     await db.insert('packages', {
       'name': 'أساسية',
-      'price': 3000.0,
+      'price': 32000000,
+      'old_price': 60,
       'offer': null,
       'x': 0,
       'description': '',
@@ -130,7 +176,8 @@ class DatabaseHelper {
 
     await db.insert('packages', {
       'name': 'أكسترا',
-      'price': 3000.0,
+      'price': 32000000,
+      'old_price': 60,
       'offer': null,
       'x': 7,
       'description': '',
@@ -139,6 +186,7 @@ class DatabaseHelper {
     await db.insert('packages', {
       'name': 'بلس',
       'price': 3000.0,
+      'old_price': 3000.0,
       'offer': "أفضل قيمة مقابل سعر",
       'x': 18,
       'description': '',
@@ -147,6 +195,7 @@ class DatabaseHelper {
     await db.insert('packages', {
       'name': 'سوبر',
       'price': 3000.0,
+      'old_price': 3000.0,
       'offer': "أعلى مشاهدات",
       'x': 24,
       'description': '',
@@ -155,6 +204,7 @@ class DatabaseHelper {
     await db.insert('packages', {
       'name': 'باقة ملابس كاملة',
       'price': 50000.0,
+      'old_price': 60000.0,
       'offer': null,
       'x': 0,
       'description': 'هودي + إكسسوارات بخصم.',
@@ -180,6 +230,10 @@ class DatabaseHelper {
       await _insertOrUpdatePackage(db, 'بلس', 3000.0, "أفضل قيمة مقابل سعر", 18);
       await _insertOrUpdatePackage(db, 'سوبر', 3000.0, "أعلى مشاهدات", 24);
     }
+    if (oldVersion < 3) {
+      await db.execute('ALTER TABLE products ADD COLUMN old_price REAL;');
+      await db.execute('UPDATE packages SET old_price = price WHERE old_price IS NULL OR old_price = 0;');
+    }
   }
 
   Future<void> _insertOrUpdatePackage(Database db, String name, double price, String? offer, int x) async {
@@ -188,6 +242,7 @@ class DatabaseHelper {
       await db.insert('packages', {
         'name': name,
         'price': price,
+        'old_price': price,
         'offer': offer,
         'x': x,
         'description': '',
@@ -195,6 +250,7 @@ class DatabaseHelper {
     } else {
       await db.update('packages', {
         'price': price,
+        'old_price': price,
         'offer': offer,
         'x': x,
         'description': '',
@@ -205,7 +261,7 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> getProducts() async {
     final db = await database;
     return await db.rawQuery('''
-      SELECT p.name, p.price, p.image_url, c.name as category 
+      SELECT p.name, p.price, p.old_price, p.image_url, c.name as category 
       FROM products p 
       JOIN categories c ON p.category_id = c.id
     ''');
@@ -245,15 +301,6 @@ class DatabaseHelper {
         x: maps[i]['x'] as int,
         isChecked: false,
       );
-    });
-  }
-
-  Future<int> addOrder(int userId, int productId, int quantity) async {
-    final db = await database;
-    return await db.insert('orders', {
-      'user_id': userId,
-      'product_id': productId,
-      'quantity': quantity,
     });
   }
 }

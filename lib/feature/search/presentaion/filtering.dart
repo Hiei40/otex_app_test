@@ -174,25 +174,28 @@ class _FilteringState extends State<Filtering> {
                 ),
                 const SizedBox(height: 10),
 
-                Wrap(
-                  spacing: 20.0,
-                  runSpacing: 10.0,
-                  children: List.generate(options.length, (index) {
-                    final option = options[index];
-                    final bool isSelected = selected == option;
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Wrap(
+                    spacing: 20.0,
+                    runSpacing: 10.0,
+                    children: List.generate(options.length, (index) {
+                      final option = options[index];
+                      final bool isSelected = selected == option;
 
-                    return IntrinsicWidth(
-                      child: ContainerChoose(
-                        option: option,
-                        isSelect: isSelected,
-                        onTap: () {
-                          setState(() {
-                            selected = option;
-                          });
-                        },
-                      ),
-                    );
-                  }),
+                      return IntrinsicWidth(
+                        child: ContainerChoose(
+                          option: option,
+                          isSelect: isSelected,
+                          onTap: () {
+                            setState(() {
+                              selected = option;
+                            });
+                          },
+                        ),
+                      );
+                    }),
+                  ),
                 ),
                 const SizedBox(height: 30),
 
@@ -210,23 +213,26 @@ class _FilteringState extends State<Filtering> {
                 ),
                 const SizedBox(height: 10),
 
-                Wrap(
-                  spacing: 8.0,
-                  runSpacing: 3.0,
-                  children: numofrooms.map((option) {
-                    final bool isSelected = numbofrooms == option;
-                    return IntrinsicWidth(
-                      child: ContainerChoose(
-                        isSelect: isSelected,
-                        option: option,
-                        onTap: () {
-                          setState(() {
-                            numbofrooms = option;
-                          });
-                        },
-                      ),
-                    );
-                  }).toList(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Wrap(
+                    spacing: 8.0,
+                    runSpacing: 3.0,
+                    children: numofrooms.map((option) {
+                      final bool isSelected = numbofrooms == option;
+                      return IntrinsicWidth(
+                        child: ContainerChoose(
+                          isSelect: isSelected,
+                          option: option,
+                          onTap: () {
+                            setState(() {
+                              numbofrooms = option;
+                            });
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 const SizedBox(height: 30),
 
@@ -247,23 +253,26 @@ class _FilteringState extends State<Filtering> {
                 ),
                 const SizedBox(height: 10),
 
-                Wrap(
-                  spacing: 8.0,
-                  runSpacing: 3.0,
-                  children: paymentways.map((option) {
-                    final bool isSelected = paymentway == option;
-                    return IntrinsicWidth(
-                      child: ContainerChoose(
-                        isSelect: isSelected,
-                        option: option,
-                        onTap: () {
-                          setState(() {
-                            paymentway = option;
-                          });
-                        },
-                      ),
-                    );
-                  }).toList(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Wrap(
+                    spacing: 8.0,
+                    runSpacing: 3.0,
+                    children: paymentways.map((option) {
+                      final bool isSelected = paymentway == option;
+                      return IntrinsicWidth(
+                        child: ContainerChoose(
+                          isSelect: isSelected,
+                          option: option,
+                          onTap: () {
+                            setState(() {
+                              paymentway = option;
+                            });
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 const SizedBox(height: 10),
 
@@ -281,23 +290,27 @@ class _FilteringState extends State<Filtering> {
                 ),
                 const SizedBox(height: 10),
 
-                Wrap(
-                  spacing: 8.0,
-                  runSpacing: 3.0,
-                  children: aboutbuilding.map((option) {
-                    final bool isSelected = buildingstatus == option;
-                    return IntrinsicWidth(
-                      child: ContainerChoose(
-                        isSelect: isSelected,
-                        option: option,
-                        onTap: () {
-                          setState(() {
-                            buildingstatus = option;
-                          });
-                        },
-                      ),
-                    );
-                  }).toList(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+
+                  child: Wrap(
+                    spacing: 8.0,
+                    runSpacing: 3.0,
+                    children: aboutbuilding.map((option) {
+                      final bool isSelected = buildingstatus == option;
+                      return IntrinsicWidth(
+                        child: ContainerChoose(
+                          isSelect: isSelected,
+                          option: option,
+                          onTap: () {
+                            setState(() {
+                              buildingstatus = option;
+                            });
+                          },
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 const SizedBox(height: 20),
 

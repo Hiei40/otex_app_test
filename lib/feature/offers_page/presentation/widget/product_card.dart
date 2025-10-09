@@ -91,13 +91,15 @@ final ProductModel productModel;
                       child:Stack(
                         children: [
                           Text(
-                            ",${productModel.oldPrice}",
+                            productModel.oldPrice.toString(),
+
                             style: TextStyle(
                               fontSize: 12,
                               color:AppColors.black.withOpacity(0.50),
                               fontWeight: FontWeight.w400,
                               decoration: TextDecoration.lineThrough,
-                              decorationColor: Colors.grey,
+                              decorationColor:AppColors.black.withOpacity(0.50),
+                              decorationThickness: 2.0,
                             ),
                             textAlign: TextAlign.center,
                           ),
@@ -134,6 +136,7 @@ final ProductModel productModel;
                         fontFamily: Font.tajwal,
                       ),
                     ),
+
                     Spacer(),
                   ],
                 ),
