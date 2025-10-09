@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:otex_app_test/feature/search/presentaion/widget/package_widget.dart';
 
 import '../../../../utils/colors/colors.dart';
 import '../../../../utils/photos/photos.dart';
+import 'banner_clipper.dart';
+import 'double_watching_widget.dart';
 import 'list_tile_custom_package.dart';
 
 class PackagesViews extends StatefulWidget {
   final bool ischeck;
   final String name;
   final String? offer;
-
+  final int? x;
   const PackagesViews({
     super.key,
     required this.ischeck,
     required this.name,
     this.offer,
+    required this.x,
   });
 
   @override
@@ -36,9 +40,8 @@ class _PackagesViewsState extends State<PackagesViews> {
       children: [
         Column(
           children: [
-            SizedBox(height: 12),
+            SizedBox(height: 17),
             Container(
-
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -52,7 +55,7 @@ class _PackagesViewsState extends State<PackagesViews> {
                 borderRadius: BorderRadius.circular(10),
               ),
               width: MediaQuery.of(context).size.width * 0.9,
-              constraints: const BoxConstraints(minHeight: 79),
+              constraints: const BoxConstraints(minHeight: 85),
               child: Column(
                 children: [
                   Padding(
@@ -102,8 +105,7 @@ class _PackagesViewsState extends State<PackagesViews> {
                           child: Row(
                             children: [
                               SizedBox(
-                                width:
-                                    .50 * MediaQuery.of(context).size.width,
+                                width: .50 * MediaQuery.of(context).size.width,
                                 child: Column(
                                   spacing: 10,
                                   children: [
@@ -118,7 +120,7 @@ class _PackagesViewsState extends State<PackagesViews> {
                               Spacer(),
                               widget.name == 'أساسية'
                                   ? SizedBox()
-                                  : Doublewatchingwidget(),
+                                  : Doublewatchingwidget(x: widget.x ?? 0),
                             ],
                           ),
                         ),
@@ -167,163 +169,6 @@ class _PackagesViewsState extends State<PackagesViews> {
   }
 }
 
-class SemicircleNumberWidget extends StatelessWidget {
-  const SemicircleNumberWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 100,
-      height: 50,
-      child: Stack(
-        children: [
-          ClipPath(
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
 
-              decoration: BoxDecoration(
-                color: AppColors.green.withOpacity(0.05),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50.0),
-                  topRight: Radius.circular(50.0),
-                ),
-                border: Border(
-                  left: BorderSide(color: AppColors.green, width: 2),
-                  top: BorderSide(color: AppColors.green, width: 2),
-                  right: BorderSide(color: AppColors.green, width: 2),
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: Text(
-              '18',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: AppColors.green,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
-class PackageWidget extends StatelessWidget {
-  final String name;
-
-  const PackageWidget({required this.name, super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    if (name != 'أساسية') {
-      return ListView(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        children: [
-          SizedBox(height: 10),
-          ListTileCustomPackage(
-            title: "رفع لأعلى القائمة كل 3 أيام",
-            image: Photos.rocket,
-          ),
-          SizedBox(height: 10),
-          ListTileCustomPackage(
-            title: "تثبيت فى مقاول صحى",
-            subtitle: "( خلال ال48 ساعة القادمة )",
-            image: Photos.keep,
-          ),
-
-          SizedBox(height: 10),
-          name != "أكسترا"
-              ? Column(
-                children: [
-                  SizedBox(height: 10),
-                  ListTileCustomPackage(
-                    title: "ظهور فى كل محافظات مصر",
-                    image: Photos.globle, // Corrected typo
-                  ),
-
-                  SizedBox(height: 10),
-                  ListTileCustomPackage(
-                    title: "أعلان مميز",
-                    image: Photos.workspace,
-                  ),
-
-                  SizedBox(height: 10),
-                  ListTileCustomPackage(
-                    title: "تثبيت فى مقاول صحى فى الجهراء",
-                    image: Photos.keep,
-                  ),
-                  SizedBox(height: 10),
-                  ListTileCustomPackage(
-                    title: "تثبيت فى مقاول صحى",
-                    subtitle: "( خلال ال48 ساعة القادمة )",
-                    image: Photos.keep,
-                  ),
-                  SizedBox(height: 10),
-                ],
-              )
-              : SizedBox(),
-        ],
-      );
-    }
-    return const SizedBox(); // Fallback if condition is not met
-  }
-}
-
-class Doublewatchingwidget extends StatelessWidget {
-  const Doublewatchingwidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(
-        children: [
-          Container(
-            alignment: Alignment.center,
-            width: 70,
-
-            child: SemicircleNumberWidget(),
-          ),
-          Text(
-            "ضعف عدد \nالمشاهدات",
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 12,
-              decorationColor: AppColors.green,
-              decorationThickness: 30,
-              fontWeight: FontWeight.w700,
-              color: AppColors.textColor,
-              decoration: TextDecoration.underline,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class BannerClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    final notchDepth = size.width * 0.08;
-
-    path.moveTo(0, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.lineTo(notchDepth, size.height * 0.5);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
-}

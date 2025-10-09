@@ -28,6 +28,7 @@ class ProductCard extends StatelessWidget {
               padding: const EdgeInsets.all(0),
               child: Container(
                 height: 100,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(7.0),
@@ -42,7 +43,7 @@ class ProductCard extends StatelessWidget {
                   // ),
                   child: Image.asset(
                     "assets/02e47cf0ed554bc399ec7a98c03dccd8f99147c6.png",
-                    fit: BoxFit.contain,
+                    fit: BoxFit.fitWidth,
                   ),
                 ),
               ),
@@ -98,7 +99,7 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 6),
+                const SizedBox(height: 10),
 
                 Row(
                   children: [
@@ -124,6 +125,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                 ),
+                const SizedBox(height:30),
 
                 Align(
                   alignment: Alignment.bottomCenter,

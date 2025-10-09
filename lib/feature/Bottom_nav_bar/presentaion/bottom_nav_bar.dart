@@ -5,6 +5,7 @@ import 'package:otex_app_test/feature/Bottom_nav_bar/presentaion/widget/containe
 import 'package:otex_app_test/utils/colors/colors.dart';
 import '../../offers_page/presentation/offers_page.dart';
 import '../../search/presentaion/filtering.dart';
+import '../../search/presentaion/plans_selected.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -73,7 +74,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   if (index == 4) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Filtering()),
+                      MaterialPageRoute(builder: (context) => const PlansSelected()),
                     );
                   } else {
                     _onItemTapped(index);
