@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:otex_app_test/utils/fonts/fonts.dart';
 import 'feature/Bottom_nav_bar/presentaion/bottom_nav_bar.dart';
-import 'feature/offers_page/presentation/offers_page.dart';
 
 
 

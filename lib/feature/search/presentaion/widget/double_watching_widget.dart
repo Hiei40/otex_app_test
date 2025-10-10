@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:otex_app_test/feature/search/presentaion/widget/packages_views.dart';
 import 'package:otex_app_test/feature/search/presentaion/widget/semicircle_number_widget.dart';
 
 import '../../../../utils/colors/colors.dart';

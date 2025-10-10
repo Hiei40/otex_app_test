@@ -4,7 +4,6 @@ import 'package:otex_app_test/feature/Bottom_nav_bar/presentaion/widget/containe
 import 'package:otex_app_test/feature/Bottom_nav_bar/presentaion/widget/container_icon_unactive.dart';
 import 'package:otex_app_test/utils/colors/colors.dart';
 import '../../offers_page/presentation/offers_page.dart';
-import '../../search/presentaion/filtering.dart';
 import '../../search/presentaion/plans_selected.dart';
 
 class BottomNavBar extends StatefulWidget {
