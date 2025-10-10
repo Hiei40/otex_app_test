@@ -65,3 +65,8 @@ Code organization and clean code practices
 
 
 Developer Note: This project demonstrates production-ready code with focus on maintainability, scalability, and performance optimization.RetryClaude does not have the ability to run the code it generates yet.
+<img width="428" height="889" alt="image" src="https://github.com/user-attachments/assets/26e7bd74-c3e6-40e7-830e-a782fe860ca4" />
+<img width="438" height="881" alt="image" src="https://github.com/user-attachments/assets/7d5f0baf-d432-4540-bce9-33607d492c90" />
+<img width="463" height="888" alt="image" src="https://github.com/user-attachments/assets/098bf34b-b4b1-45a0-a6a5-1732cd467b6d" />
+<img width="443" height="893" alt="image" src="https://github.com/user-attachments/assets/cc676b28-d1da-4d01-8dd4-94db42e3611c" />
+<img width="464" height="887" alt="image" src="https://github.com/user-attachments/assets/f3b92bcc-0c1b-431f-8576-d5bd647c3bab" />
